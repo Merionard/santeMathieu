@@ -1,12 +1,9 @@
-package com.application.entites;
+package com.entites;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Accessors(chain = true)
@@ -14,12 +11,10 @@ import javax.persistence.Id;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     private String nom;
 
-    private double potassium;
-
     private TypeComptabilisation typeComptabilisation;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ApportNutritionnel apportNutritionnel;
 }
