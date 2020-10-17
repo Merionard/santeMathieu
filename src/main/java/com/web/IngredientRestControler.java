@@ -1,10 +1,7 @@
 package com.web;
 
-import com.entites.ApportNutritionnel;
-import com.entites.TypeComptabilisation;
-import com.repository.ApportNutritionnelRepository;
-import com.repository.IngredientRepository;
 import com.entites.Ingredient;
+import com.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +13,7 @@ public class IngredientRestControler {
 
     @Autowired
     private IngredientRepository ingredientRepository;
-    @Autowired
-    private ApportNutritionnelRepository apportNutritionnelRepository;
+
 
     @GetMapping("/list")
     public List<Ingredient> getAll() {
@@ -26,28 +22,20 @@ public class IngredientRestControler {
     }
 
     @GetMapping("/{nom}")
-    public Ingredient getByName(@PathVariable String nom){
+    public Ingredient getByName(@PathVariable String nom) {
         return ingredientRepository.getByNom(nom);
     }
 
-    @PostMapping(path ="add", consumes = "application/json", produces = "application/json")
-    public Ingredient addIngredient(@RequestBody Ingredient ingredient){
+    @PostMapping(path = "add", consumes = "application/json", produces = "application/json")
+    public Ingredient addIngredient(@RequestBody Ingredient ingredient) {
         return ingredientRepository.save(ingredient);
     }
 
-    @GetMapping("/add")
-    public Ingredient addForTest() {
-        ApportNutritionnel apportNutritionnel = new ApportNutritionnel().setPhosphore(10).setCalcium(7);
-        apportNutritionnelRepository.save(apportNutritionnel);
-
-
-      return  ingredientRepository.save(new Ingredient().setNom("Carotte")
-                .setTypeComptabilisation(TypeComptabilisation.POIDS)
-                .setApportNutritionnel(apportNutritionnel)
-        );
+    @PostMapping(path = "delete", consumes = "application/json", produces = "application/json")
+    public String deleteIngredient(@RequestBody Ingredient ingredient) {
+        ingredientRepository.delete(ingredient);
+        return "l'ingrédient " + ingredient.getNom() + " a été supprimé";
     }
-
-
 
 
 }
