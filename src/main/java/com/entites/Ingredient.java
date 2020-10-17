@@ -17,4 +17,7 @@ public class Ingredient {
 
     @OneToOne(cascade = CascadeType.ALL)
     private ApportNutritionnel apportNutritionnel;
+
+    @Enumerated(EnumType.STRING)
+    private CategorieIngredient categorie;
 }

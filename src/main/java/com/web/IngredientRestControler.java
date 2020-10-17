@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("ingredient")
+@CrossOrigin("*")
 public class IngredientRestControler {
 
     @Autowired
