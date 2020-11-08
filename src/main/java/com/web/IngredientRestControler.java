@@ -24,6 +24,7 @@ public class IngredientRestControler {
 
     @GetMapping("/{nom}")
     public Ingredient getByName(@PathVariable String nom) {
+
         return ingredientRepository.getByNom(nom);
     }
 

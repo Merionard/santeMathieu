@@ -14,5 +14,5 @@ public class RapportJournalier {
     private LocalDate date;
 
     @OneToMany
-    private Set<RapportJournalier> rapportJournaliers = new HashSet<>();
+    private Set<ReleveInformations> rapportJournaliers = new HashSet<>();
 }

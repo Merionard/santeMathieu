@@ -17,7 +17,7 @@ public class ReleveInformations {
     private Tension tension;
 
     @OneToOne
-    private Repas repas;
+    private Plat plat;
 
     private String remarque;
 
