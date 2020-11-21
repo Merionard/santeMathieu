@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlatRepository extends JpaRepository<Plat,String> {
+
+    Plat getByNom(String nom);
 }

@@ -51,5 +51,10 @@ public class PlatRestControler {
         return platRepository.save(plat);
     }
 
+    @GetMapping("/{nom}")
+    public Plat getByName(@PathVariable String nom) {
+        return platRepository.getByNom(nom);
+    }
+
 
 }
