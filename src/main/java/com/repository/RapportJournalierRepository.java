@@ -12,4 +12,6 @@ public interface RapportJournalierRepository extends JpaRepository<RapportJourna
 
 
     List<RapportJournalier> findAllByDateBetween(LocalDate date1, LocalDate date2);
+
+    RapportJournalier findByDateEquals(LocalDate date);
 }

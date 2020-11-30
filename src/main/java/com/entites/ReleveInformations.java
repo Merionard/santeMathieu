@@ -1,6 +1,10 @@
 package com.entites;
 
+import com.PeriodeEnum;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class ReleveInformations {
@@ -9,15 +13,18 @@ public class ReleveInformations {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int trancheHoraireDebut;
-
-    private int trancheHoraireFin;
 
     @OneToOne
     private Tension tension;
 
+    @Enumerated(EnumType.STRING)
+    private PeriodeEnum periode;
+
+    @OneToMany
+    private Set<Plat> listPlats = new HashSet<>();
+
     @OneToOne
-    private Plat plat;
+    private ApportNutritionnel apportNutritionnel;
 
     private String remarque;
 

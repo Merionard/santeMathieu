@@ -1,7 +1,7 @@
 package com.entites;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,9 +16,9 @@ public class RapportJournalier {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate date;
 
     @OneToMany
-    private Set<ReleveInformations> rapportJournaliers = new HashSet<>();
+    private Set<ReleveInformations> relevesInfos = new HashSet<>();
 }
