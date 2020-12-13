@@ -1,7 +1,13 @@
 package com.web;
 
+import com.PeriodeEnum;
+import com.entites.ApportNutritionnel;
 import com.entites.RapportJournalier;
+import com.entites.ReleveInformations;
+import com.entites.Tension;
+import com.repository.PlatRepository;
 import com.repository.RapportJournalierRepository;
+import com.services.RapportJournalierService;
 import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -21,6 +28,10 @@ public class RapportJournalierControler {
 
     @Autowired
     private RapportJournalierRepository rapportJournalierRepository;
+    @Autowired
+    private PlatRepository platRepository;
+    @Autowired
+    private RapportJournalierService rapportJournalierService;
 
 
     @GetMapping("/list")
@@ -32,7 +43,7 @@ public class RapportJournalierControler {
 
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
     public RapportJournalier addRapportJournalier(@RequestBody RapportJournalier rapportJournalier) {
-        return rapportJournalierRepository.save(rapportJournalier);
+        return rapportJournalierService.saveRapportJournalier(rapportJournalier);
     }
 
 
@@ -48,6 +59,20 @@ public class RapportJournalierControler {
     public List<RapportJournalier> getAllByDate(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                                 @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
         return rapportJournalierRepository.findAllByDateBetween(startDate, endDate);
+    }
+
+    @GetMapping("/test")
+    public RapportJournalier test(){
+        RapportJournalier rapportJournalier = new RapportJournalier()
+                .setDate(LocalDate.now())
+                .addReleve(new ReleveInformations()
+                .setTension(new Tension().setT_descendante(5).setT_descendante(11))
+                .setApportNutritionnel(new ApportNutritionnel().setMagnesium(5).setPhosphore(2))
+                .addPlat(platRepository.findAll().get(0))
+                .setPeriode(PeriodeEnum.MATIN)
+                .setRemarque("Rapport de test"));
+
+        return rapportJournalierRepository.save(rapportJournalier);
     }
 
 
